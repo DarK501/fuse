@@ -4,6 +4,7 @@
  * Copyright (c) 2011-2015 Benjamin Fleischer
  */
 
+#include "config.h"
 #include "fuse_i.h"
 #include "fuse_darwin_private.h"
 
@@ -288,17 +289,18 @@ fuse_resource_path(const char *path)
         }
 
         relative_path = (char *)path + sizeof(EXECUTABLE_PATH) - 1;
-    } else if (strncmp(path, LOADER_PATH, sizeof(LOADER_PATH) - 1) == 0) {
+    } 
+	/*else if (strncmp(path, LOADER_PATH, sizeof(LOADER_PATH) - 1) == 0) {
         Dl_info info;
 
-        /* Path relative to loader */
+        * Path relative to loader *
         if (!dladdr(&fuse_resource_path, &info)) {
             return NULL;
         }
         strlcpy(base_path, info.dli_fname, sizeof(base_path));
 
         relative_path = (char *)path + sizeof(LOADER_PATH) - 1;
-    }
+    }*/
 
     if (relative_path) {
         char  base_path_real[MAXPATHLEN];
